@@ -4,7 +4,7 @@ title: «مرا به خاطر بسپار» در Scala و Play Framework
 date: 2014-02-04T01:17:52+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=200
+guid: https://dev-frame.amirkarimi.me/?p=200
 permalink: '/2014/02/%d9%85%d8%b1%d8%a7-%d8%a8%d9%87-%d8%ae%d8%a7%d8%b7%d8%b1-%d8%a8%d8%b3%d9%be%d8%a7%d8%b1-%d8%af%d8%b1-scala-play-framework/'
 views:
   - "1421"

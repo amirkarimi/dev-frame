@@ -4,7 +4,7 @@ title: تایپ ۱۰ انگشتی
 date: 2015-01-21T12:31:33+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=686
+guid: https://dev-frame.amirkarimi.me/?p=686
 permalink: '/2015/01/%d8%aa%d8%a7%db%8c%d9%be-%db%b1%db%b0-%d8%a7%d9%86%da%af%d8%b4%d8%aa%db%8c/'
 views:
   - "9599"

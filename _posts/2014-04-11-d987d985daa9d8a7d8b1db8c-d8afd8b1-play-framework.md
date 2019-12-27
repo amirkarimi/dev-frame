@@ -4,7 +4,7 @@ title: همکاری در Play Framework
 date: 2014-04-11T23:07:42+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=400
+guid: https://dev-frame.amirkarimi.me/?p=400
 permalink: '/2014/04/%d9%87%d9%85%da%a9%d8%a7%d8%b1%db%8c-%d8%af%d8%b1-play-framework/'
 views:
   - "5129"

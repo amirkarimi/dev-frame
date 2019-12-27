@@ -4,7 +4,7 @@ title: بازی غیر قابل اعتماد (Gamification)
 date: 2014-05-05T18:38:33+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=480
+guid: https://dev-frame.amirkarimi.me/?p=480
 permalink: '/2014/05/%d8%a8%d8%a7%d8%b2%db%8c-%d8%ba%db%8c%d8%b1-%d9%82%d8%a7%d8%a8%d9%84-%d8%a7%d8%b9%d8%aa%d9%85%d8%a7%d8%af-gamification/'
 views:
   - "1252"

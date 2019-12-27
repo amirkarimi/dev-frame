@@ -4,7 +4,7 @@ title: بالاترین سرعتی که از یک وب سرور دیدم؛ ۹ م
 date: 2014-08-22T16:09:57+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=610
+guid: https://dev-frame.amirkarimi.me/?p=610
 permalink: '/2014/08/%d8%a8%d8%a7%d9%84%d8%a7%d8%aa%d8%b1%db%8c%d9%86-%d8%b3%d8%b1%d8%b9%d8%aa%db%8c-%da%a9%d9%87-%d8%a7%d8%b2-%db%8c%da%a9-%d9%88%d8%a8-%d8%b3%d8%b1%d9%88%d8%b1-%d8%af%db%8c%d8%af%d9%85%d8%9b-%db%b9/'
 views:
   - "16444"

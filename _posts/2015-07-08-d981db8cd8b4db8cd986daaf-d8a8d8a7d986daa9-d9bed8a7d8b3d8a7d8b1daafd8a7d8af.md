@@ -4,7 +4,7 @@ title: 'فیشینگ بانک پاسارگاد &#8211; پیدا کردن هکر'
 date: 2015-07-08T10:07:47+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=732
+guid: https://dev-frame.amirkarimi.me/?p=732
 permalink: '/2015/07/%d9%81%db%8c%d8%b4%db%8c%d9%86%da%af-%d8%a8%d8%a7%d9%86%da%a9-%d9%be%d8%a7%d8%b3%d8%a7%d8%b1%da%af%d8%a7%d8%af/'
 views:
   - "2882"

@@ -4,7 +4,7 @@ title: سرعت فضایی Scala و Play Framework و Mongo
 date: 2014-03-06T00:00:30+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=272
+guid: https://dev-frame.amirkarimi.me/?p=272
 permalink: '/2014/03/%d8%b3%d8%b1%d8%b9%d8%aa-%d9%81%d8%b6%d8%a7%db%8c%db%8c-scala-play-framework-mongo/'
 views:
   - "8919"

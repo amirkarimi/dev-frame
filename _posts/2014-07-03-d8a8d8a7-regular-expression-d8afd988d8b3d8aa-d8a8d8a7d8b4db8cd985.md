@@ -4,7 +4,7 @@ title: با Regular Expression دوست باشیم
 date: 2014-07-03T10:34:24+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=413
+guid: https://dev-frame.amirkarimi.me/?p=413
 permalink: '/2014/07/%d8%a8%d8%a7-regular-expression-%d8%af%d9%88%d8%b3%d8%aa-%d8%a8%d8%a7%d8%b4%db%8c%d9%85/'
 views:
   - "2236"

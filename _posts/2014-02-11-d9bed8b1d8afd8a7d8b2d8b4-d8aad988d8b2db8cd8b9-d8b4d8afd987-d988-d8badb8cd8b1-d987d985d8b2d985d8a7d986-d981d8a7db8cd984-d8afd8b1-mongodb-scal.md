@@ -4,7 +4,7 @@ title: پردازش توزیع شده و غیر همزمان تصویر در Mon
 date: 2014-02-11T00:24:38+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=215
+guid: https://dev-frame.amirkarimi.me/?p=215
 permalink: '/2014/02/%d9%be%d8%b1%d8%af%d8%a7%d8%b2%d8%b4-%d8%aa%d9%88%d8%b2%db%8c%d8%b9-%d8%b4%d8%af%d9%87-%d9%88-%d8%ba%db%8c%d8%b1-%d9%87%d9%85%d8%b2%d9%85%d8%a7%d9%86-%d9%81%d8%a7%db%8c%d9%84-%d8%af%d8%b1-mongodb-scal/'
 views:
   - "1137"

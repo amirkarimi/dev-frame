@@ -4,7 +4,7 @@ title: مقایسه تجربی روبی، جاوا اسکریپت و اسکال�
 date: 2015-09-11T10:25:26+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=861
+guid: https://dev-frame.amirkarimi.me/?p=861
 permalink: '/2015/09/%d9%85%d9%82%d8%a7%db%8c%d8%b3%d9%87-%d8%aa%d8%ac%d8%b1%d8%a8%db%8c-%d8%b1%d9%88%d8%a8%db%8c%d8%8c-%d8%ac%d8%a7%d9%88%d8%a7-%d8%a7%d8%b3%da%a9%d8%b1%db%8c%d9%be%d8%aa-%d9%88-%d8%a7%d8%b3%da%a9%d8%a7/'
 views:
   - "12310"

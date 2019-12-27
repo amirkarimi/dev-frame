@@ -4,7 +4,7 @@ title: اتمام دوره آموزشی Principles of Reactive Programming
 date: 2013-12-24T13:00:38+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=112
+guid: https://dev-frame.amirkarimi.me/?p=112
 permalink: '/2013/12/%d8%a7%d8%aa%d9%85%d8%a7%d9%85-%d8%af%d9%88%d8%b1%d9%87-%d8%a2%d9%85%d9%88%d8%b2%d8%b4%db%8c-principles-of-reactive-programming/'
 views:
   - "1296"

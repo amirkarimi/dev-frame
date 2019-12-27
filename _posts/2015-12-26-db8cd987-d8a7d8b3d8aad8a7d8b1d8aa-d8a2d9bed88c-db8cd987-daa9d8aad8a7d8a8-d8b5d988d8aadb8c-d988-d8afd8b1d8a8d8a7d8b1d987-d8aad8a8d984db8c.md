@@ -4,7 +4,7 @@ title: یه استارت آپ، یه کتاب صوتی و درباره تبلی�
 date: 2015-12-26T21:37:26+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=935
+guid: https://dev-frame.amirkarimi.me/?p=935
 permalink: '/2015/12/%db%8c%d9%87-%d8%a7%d8%b3%d8%aa%d8%a7%d8%b1%d8%aa-%d8%a2%d9%be%d8%8c-%db%8c%d9%87-%da%a9%d8%aa%d8%a7%d8%a8-%d8%b5%d9%88%d8%aa%db%8c-%d9%88-%d8%af%d8%b1%d8%a8%d8%a7%d8%b1%d9%87-%d8%aa%d8%a8%d9%84%db%8c/'
 views:
   - "1161"

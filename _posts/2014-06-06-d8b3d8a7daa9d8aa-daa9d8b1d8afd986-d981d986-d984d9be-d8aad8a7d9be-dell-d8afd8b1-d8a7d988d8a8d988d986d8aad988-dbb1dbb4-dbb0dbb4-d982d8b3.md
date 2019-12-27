@@ -4,7 +4,7 @@ title: 'ساکت کردن فن لپ تاپ DELL در اوبونتو ۱۴.۰۴ &#
 date: 2014-06-06T19:54:21+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=575
+guid: https://dev-frame.amirkarimi.me/?p=575
 permalink: '/2014/06/%d8%b3%d8%a7%da%a9%d8%aa-%da%a9%d8%b1%d8%af%d9%86-%d9%81%d9%86-%d9%84%d9%be-%d8%aa%d8%a7%d9%be-dell-%d8%af%d8%b1-%d8%a7%d9%88%d8%a8%d9%88%d9%86%d8%aa%d9%88-%db%b1%db%b4-%db%b0%db%b4-%d9%82%d8%b3/'
 views:
   - "10621"

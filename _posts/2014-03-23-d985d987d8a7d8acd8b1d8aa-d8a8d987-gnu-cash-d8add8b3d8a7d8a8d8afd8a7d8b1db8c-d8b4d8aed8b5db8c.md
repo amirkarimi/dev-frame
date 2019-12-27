@@ -4,7 +4,7 @@ title: GnuCash برای حسابداری شخصی
 date: 2014-03-23T19:36:49+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=317
+guid: https://dev-frame.amirkarimi.me/?p=317
 permalink: '/2014/03/%d9%85%d9%87%d8%a7%d8%ac%d8%b1%d8%aa-%d8%a8%d9%87-gnu-cash-%d8%ad%d8%b3%d8%a7%d8%a8%d8%af%d8%a7%d8%b1%db%8c-%d8%b4%d8%ae%d8%b5%db%8c/'
 views:
   - "2870"

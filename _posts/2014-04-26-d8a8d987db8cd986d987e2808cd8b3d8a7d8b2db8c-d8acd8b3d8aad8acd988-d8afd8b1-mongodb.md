@@ -4,7 +4,7 @@ title: بهینه‌سازی جستجو در MongoDB
 date: 2014-04-26T18:32:16+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=455
+guid: https://dev-frame.amirkarimi.me/?p=455
 permalink: '/2014/04/%d8%a8%d9%87%db%8c%d9%86%d9%87%e2%80%8c%d8%b3%d8%a7%d8%b2%db%8c-%d8%ac%d8%b3%d8%aa%d8%ac%d9%88-%d8%af%d8%b1-mongodb/'
 views:
   - "1290"

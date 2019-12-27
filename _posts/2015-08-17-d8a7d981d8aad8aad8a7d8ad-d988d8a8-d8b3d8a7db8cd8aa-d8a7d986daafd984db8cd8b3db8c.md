@@ -4,7 +4,7 @@ title: افتتاح وب سایت انگلیسی
 date: 2015-08-17T23:10:53+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=805
+guid: https://dev-frame.amirkarimi.me/?p=805
 permalink: '/2015/08/%d8%a7%d9%81%d8%aa%d8%aa%d8%a7%d8%ad-%d9%88%d8%a8-%d8%b3%d8%a7%db%8c%d8%aa-%d8%a7%d9%86%da%af%d9%84%db%8c%d8%b3%db%8c/'
 views:
   - "4068"

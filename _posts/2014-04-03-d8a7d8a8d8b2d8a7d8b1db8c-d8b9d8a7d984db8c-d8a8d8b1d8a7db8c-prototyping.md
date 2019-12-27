@@ -4,7 +4,7 @@ title: ابزاری عالی برای Prototyping
 date: 2014-04-03T00:00:33+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=313
+guid: https://dev-frame.amirkarimi.me/?p=313
 permalink: '/2014/04/%d8%a7%d8%a8%d8%b2%d8%a7%d8%b1%db%8c-%d8%b9%d8%a7%d9%84%db%8c-%d8%a8%d8%b1%d8%a7%db%8c-prototyping/'
 views:
   - "1236"

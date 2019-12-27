@@ -4,7 +4,7 @@ title: 'رعایت کپی رایت: خرید از استیم'
 date: 2015-07-18T10:52:46+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=747
+guid: https://dev-frame.amirkarimi.me/?p=747
 permalink: '/2015/07/%d8%b1%d8%b9%d8%a7%db%8c%d8%aa-%da%a9%d9%be%db%8c-%d8%b1%d8%a7%db%8c%d8%aa-%d8%ae%d8%b1%db%8c%d8%af-%d8%a7%d8%b2-%d8%a7%d8%b3%d8%aa%db%8c%d9%85/'
 views:
   - "2874"

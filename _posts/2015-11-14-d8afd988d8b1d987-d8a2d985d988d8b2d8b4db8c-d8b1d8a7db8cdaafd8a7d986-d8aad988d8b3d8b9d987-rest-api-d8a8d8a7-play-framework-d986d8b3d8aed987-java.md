@@ -4,7 +4,7 @@ title: دوره آموزشی رایگان توسعه REST API با Play Framewor
 date: 2015-11-14T17:31:45+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=885
+guid: https://dev-frame.amirkarimi.me/?p=885
 permalink: '/2015/11/%d8%af%d9%88%d8%b1%d9%87-%d8%a2%d9%85%d9%88%d8%b2%d8%b4%db%8c-%d8%b1%d8%a7%db%8c%da%af%d8%a7%d9%86-%d8%aa%d9%88%d8%b3%d8%b9%d9%87-rest-api-%d8%a8%d8%a7-play-framework-%d9%86%d8%b3%d8%ae%d9%87-java/'
 views:
   - "2465"

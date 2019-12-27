@@ -47,7 +47,7 @@
     @include media-query($on-palm) {
         position: absolute;
         top: 9px;
-        right: 30px;
+        left: 30px;
         background-color: $background-color;
         border: 1px solid $grey-color-light;
         border-radius: 5px;
@@ -84,6 +84,7 @@
 
         .page-link {
             display: block;
+            color: $text-color;
             padding: 5px 10px;
         }
     }
@@ -245,4 +246,12 @@
         color: gray;
         font-size: 0.9em;
     }
+}
+
+.alert {
+    padding: 10px 17px;
+    margin-bottom: 12px;
+    border: 1px solid #e6dd5b;
+    background: #f9f9d6;
+    border-radius: 6px;
 }

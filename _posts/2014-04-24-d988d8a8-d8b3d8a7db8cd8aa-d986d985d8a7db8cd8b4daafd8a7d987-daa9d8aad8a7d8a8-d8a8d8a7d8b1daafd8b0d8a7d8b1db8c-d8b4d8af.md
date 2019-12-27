@@ -4,7 +4,7 @@ title: وب سایت نمایشگاه کتاب بارگذاری شد
 date: 2014-04-24T20:49:17+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=428
+guid: https://dev-frame.amirkarimi.me/?p=428
 permalink: '/2014/04/%d9%88%d8%a8-%d8%b3%d8%a7%db%8c%d8%aa-%d9%86%d9%85%d8%a7%db%8c%d8%b4%da%af%d8%a7%d9%87-%da%a9%d8%aa%d8%a7%d8%a8-%d8%a8%d8%a7%d8%b1%da%af%d8%b0%d8%a7%d8%b1%db%8c-%d8%b4%d8%af/'
 views:
   - "3342"

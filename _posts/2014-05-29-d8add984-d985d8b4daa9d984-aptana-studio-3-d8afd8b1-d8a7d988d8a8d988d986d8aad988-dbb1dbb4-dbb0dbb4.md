@@ -4,7 +4,7 @@ title: حل مشکل Aptana Studio 3 در اوبونتو ۱۴.۰۴
 date: 2014-05-29T09:06:13+00:00
 author: امیر کریمی
 layout: post
-guid: http://www.dev-frame.com/?p=541
+guid: https://dev-frame.amirkarimi.me/?p=541
 permalink: '/2014/05/%d8%ad%d9%84-%d9%85%d8%b4%da%a9%d9%84-aptana-studio-3-%d8%af%d8%b1-%d8%a7%d9%88%d8%a8%d9%88%d9%86%d8%aa%d9%88-%db%b1%db%b4-%db%b0%db%b4/'
 views:
   - "3512"
