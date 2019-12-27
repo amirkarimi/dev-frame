@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ساکت کردن فن لپ تاپ DELL در اوبونتو ۱۴.۰۴ &#8211; قسمت ۱</title>
+  <meta name="description" content="کارکرد زیاد فن (Fan) لپ‌تاپ‌ها روی لینوکس یک مشکل شناخته شده است که البته کارهایی هم برای حل آن انجام شده ولی حداقل برای لپ‌تاپ من (Inspiron 5520) این مشکل ب...">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2014/06/%d8%b3%d8%a7%da%a9%d8%aa-%da%a9%d8%b1%d8%af%d9%86-%d9%81%d9%86-%d9%84%d9%be-%d8%aa%d8%a7%d9%be-dell-%d8%af%d8%b1-%d8%a7%d9%88%d8%a8%d9%88%d9%86%d8%aa%d9%88-%db%b1%db%b4-%db%b0%db%b4/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ساکت کردن فن لپ تاپ DELL در اوبونتو ۱۴.۰۴ &#8211; قسمت ۱</h1>
+    <p class="post-meta">Jun 5, 2014 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p>کارکرد زیاد فن (Fan) لپ‌تاپ‌ها روی لینوکس یک مشکل شناخته شده است که البته کارهایی هم برای حل آن انجام شده ولی حداقل برای لپ‌تاپ من (Inspiron 5520) این مشکل به صورت پیشفرض حل نشده و نیازمند برخی کارهای اضافه است.</p>
+
+<p>همین امروز به یک راه حل رسیدم که تا انتهای آن نرفته صدای فن قطع شد.</p>
+
+<p>اولین کار، لود کردن درایور i8k است که امکان دسترسی به SSM BIOS لپ‌تاپ‌های DELL را می‌دهد. خوشبختانه این درایور از نسخه ۳ به بعد به کرنل لینوکس اضافه شده و فعال کردن آن با دستور زیر به راحتی انجام می‌گیرد:</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">sudo modprobe -v i8k
+</pre>
+
+<p>با اجرای این دستور باید خروجی شبیه این دریافت شود:</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">insmod /lib/modules/3.5.0-30-generic/kernel/drivers/char/i8k.ko
+</pre>
+
+<p>بعد از آن باید ابزار i8kutils را با دستور زیر نصب کنیم تا دمای CPU و سرعت فن را مانیتور کند:</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">sudo apt-get install i8kutils
+</pre>
+
+<p>بر روی اوبونتو ۱۴.۰۴ من خروجی زیر را گرفتم:</p>
+
+<pre class="brush: plain; title: ; notranslate" title="">* Starting Dell fan/cpu-temperature monitor i8kmon        [ OK ]
+</pre>
+
+<p>که یعنی مانیتورینگ همین الان آغاز شده و البته بلافاصله صدای فن قطع شد.</p>
+
+<p>در صورتی که مانیتورینگ بلافاصله پس از نصب آغاز نشود مشکلی نیست و راه حلی برای آن وجود دارد که در <a href="http://www.cyberciti.biz/faq/controlling-dell-fan-speeds-temperature-on-ubuntu-debian-linux/" target="_blank">این مقاله</a> به طور کامل توضیح داده شده.</p>
+
+<p><strong>هشدار:</strong> لطفاً هیچ وقت بدون مطالعه اینکه هر دستور چه کاری انجام می‌دهد آن را اجرا نکنید. در مقاله مذکور برخی از دستورات معادل هم هستند و صرفا برای آگاهی و حق انتخاب نوشته شده. نیازی نیست هر دستور را در گوگل سرچ کنید فقط مقاله را به طور کامل مطالعه کنید.</p>
+
+<p><strong>به روز رسانی ۱</strong></p>
+
+<p>پس از ریست کردن سیستم، صدای فن دوباره به حالت اول بازگشت با مشاهده log سیستم احتمال می‌دهم مشکل بخاطر به روز رسانی BIOS سیستمم باشد که همین چند وقت پیش انجام دادم و احتمالا i8k به همین دلیل نمی‌تواند امضای DELL را بر روی BIOS تشخصی دهد. در این حالت کافیست i8k را مجبور به این کار کنیم. برای این کار باید سرویس آن ویرایش شود. با دستور زیر می‌توانیم از GEdit برای ویرایش استفاده کنیم.</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">sudo gedit /etc/init.d/i8kmon
+</pre>
+
+<p>خطی که حاوی دستور زیر است:</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">modprobe i8k &gt;/dev/null 2&gt;&amp;1 || true
+</pre>
+
+<p>باید به دستور زیر تبدیل شود:</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">modprobe i8k force=1 &gt;/dev/null 2&gt;&amp;1 || true
+</pre>
+
+<p>با اضافه شدن force=1 به i8k اطلاع داده می‌شود که بدون توجه به امضای BIOS کارش را انجام دهد. با ریست کردن و یا اجرای دستور زیر دوباره فن ساکت می‌شود:</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">sudo service i8kmon start
+</pre>
+
+<p>توجه: حتما <a href="http://www.dev-frame.com/1393/03/%d8%b3%d8%a7%da%a9%d8%aa-%da%a9%d8%b1%d8%af%d9%86-%d9%81%d9%86-%d9%84%d9%be-%d8%aa%d8%a7%d9%be-dell-%d8%af%d8%b1-%d8%a7%d9%88%d8%a8%d9%88%d9%86%d8%aa%d9%88-%db%b1%db%b4-%db%b0%db%b4-%d9%82%d8%b3/" title="ساکت کردن فن لپ تاپ DELL در اوبونتو ۱۴.۰۴ – قسمت ۲">قسمت دوم این پست</a> را نیز برای پایین آوردن حرارت دستگاه مطالعه کنید</p>
+
+<p><strong>نتیجه اخلاقی:</strong> لینوکس برای آدم‌هایی نیست که فقط می‌خواهند کامپیوترشان کارهای روزمره را بدون نیاز به اینکه در مورد آن فکر کنند انجام دهد. بلکه برای کسانی است که به کار با کامپیوتور علاقه‌مند هستند و می‌خواهند از هر چیزی حداقل فقط برای یکبار سر در آورند. ساکت کردن فن برای لپ‌تاپ من بسیار کار راحتی بود ولی تنبلی و عدم علاقه به دانستن اینکه چطور فن سیستم مانیتور می‌شود باعث شد تا هیچ وقت این کار را انجام ندهم. بسیاری از مردم به لینوکس انتقاد می‌کنند که هر کاری را به راحتی و بدون دردسر انجام نمی‌دهد که البته تا حدودی درست است ولی نکته اینجاست که حل کردن هر مشکل فقط یکبار زمان می‌گیرد و بعد از آن نه تنها سیستم به خوبی کار می‌کند بلکه اختیار آن در دستان ما قرار می‌گیرد.</p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

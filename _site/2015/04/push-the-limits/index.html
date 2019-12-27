@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Push the Limits</title>
+  <meta name="description" content="پل گراهام (Paul Graham) سازنده سیستم فروشگاهی است که بعدا توسط یاهو خریداری شد و Yahoo Store نام گرفت. این سیستم فروشگاهی با زبان Lisp نوشته شده است. خود پل ...">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2015/04/push-the-limits/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Push the Limits</h1>
+    <p class="post-meta">Apr 3, 2015 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p><a href="http://en.wikipedia.org/wiki/Paul_Graham_%28computer_programmer%29" target="_blank">پل گراهام (Paul Graham)</a> سازنده سیستم فروشگاهی است که بعدا توسط یاهو خریداری شد و Yahoo Store نام گرفت. این سیستم فروشگاهی با زبان Lisp نوشته شده است. خود پل گراهام میگوید که Lisp یک زبان عجیب و غریب است ولی برای کاری که میخواستند انجام بدهند مناسب بود و توانستند با استفاده از تکنولوژی که بقیه کمتر از آن استفاده میکردند مزیت رقابتی داشته باشند و در نهایت موفق شوند.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/David_Heinemeier_Hansson" target="_blank">دیوید هاینمیر هانسن</a> زمانی که بر روی نرم‌افزار <a href="http://en.wikipedia.org/wiki/Basecamp_Classic" target="_blank">بیس کمپ</a> کار میکرد شروع به تولید یک چارچوب تحت وب نمود. او از زبانی استفاده کرد که در آن زمان کمتر کسی حتی اسمش را شنیده بود. آن زبان روبی بود و آن چارچوب <a href="http://en.wikipedia.org/wiki/Ruby_on_Rails" target="_blank">روبی آن ریلز</a> نام گرفت!</p>
+
+<p>این مثال‌ها را برای این زدم که بگویم بلوغ یک سیستم بستگی به استفاده کنندگان از آن سیستم دارد. من خودم همیشه به این مسئله شک میکنم که شاید بهتر است به جای کار کردن با اسکالا و یا هر چیز کمتر شناخته شده با زبان‌های ساده‌تر و مرسوم تر که توسط بیشتر برنامه نویس‌ها استفاده میشود کار کنم. مثل جاوا، جاوا اسکریپت، پایتون، روبی و … به عبارت دیگر دنباله رو دیگران باشم.</p>
+
+<p>معمولا اکثریت مردم حرف درست را میزنند ولی وقتی به کار پل گراهام یا دیوید هاینمیر هانسن و خیلی از افراد پیشرو دیگر فکر میکنم متوجه می‌شوم که برای جابجا کردن محدودیت‌ها اتفاقا نباید دنباله روی اکثریت بود.</p>
+
+<p>هزینه این کار می‌تواند زیاد باشد ولی نتیجه آن بسیار با ارزشتر خواهد بود.</p>
+
+<p>بلوغ اکوسیستم اسکالا یا هر تکنولوژی کمتر شناخته شده دیگر بستگی به خود ما دارد و نیازی نیست منتظر افراد دیگر باشیم تا مسیر را به ما نشان بدهند. تمام افراد شناخته شده و موفق، خودشان مسیرشان را ساختند و منتظر ساخته شدن مسیر نبودند.</p>
+
+<p>تنها نکته مهم این است که به مسیری که مشغول ساختن آن هستیم علاقه و ایمان داشته باشیم و از شکست نترسیم. اگر فقط یک مسیر درست وجود داشت و قرار بود همه از آن مسیر حرکت کنند، نو آوری و خلاقیت و موفقیت و خیلی چیزهای دیگر و در نهایت زندگی اصلا معنی نداشت.</p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

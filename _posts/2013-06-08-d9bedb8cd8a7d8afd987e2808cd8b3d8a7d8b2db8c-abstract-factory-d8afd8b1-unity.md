@@ -1,0 +1,163 @@
+---
+id: 30
+title: پیاده‌سازی Abstract Factory در Unity
+date: 2013-06-08T22:52:33+00:00
+author: امیر کریمی
+layout: post
+guid: http://dev-frame.com/post.aspx?id=10407333-8943-4a52-b24f-f493f1eee958
+permalink: '/2013/06/%d9%be%db%8c%d8%a7%d8%af%d9%87%e2%80%8c%d8%b3%d8%a7%d8%b2%db%8c-abstract-factory-%d8%af%d8%b1-unity/'
+views:
+  - "1794"
+categories:
+  - فناوری
+tags:
+  - Dependency Injection
+  - Design Patterns
+---
+هنگام استفاده از <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank">Dependency Injection</a> گاهی اوقات لازم است که از یک <a href="http://en.wikipedia.org/wiki/Factory_(software_concept)" target="_blank">Factory</a> برای ایجاد اشیاء جدید استفاده کنیم چون مسیر <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/" target="_blank">Composition Root</a> جواب کار ما را نمی‌دهد. مخصوصاً در هنگام استفاده از <a href="http://en.wikipedia.org/wiki/Strategy_pattern" target="_blank">Strategy Pattern</a>.
+
+برای این کار می‌توانیم یک کلاس داشته باشیم که Container را به عنوان ورودی دریافت کند (به عنوان Constructor Dependency) و از آن برای ایجاد اشیاء استفاده کند. فقط باید دقت داشته باشیم Factory ما قرار نیست هر چیزی را ایجاد کند و در واقع یک <a href="http://en.wikipedia.org/wiki/Abstract_factory_pattern" target="_blank">Abstract Factory</a> است.
+
+اینترفیس زیر را در نظر بگیرد؛
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:5c4c97ff-e354-43ae-809f-8382037279a8" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public interface ICommand
+{
+    void Execute();
+}</pre>
+</div>
+
+و فرض کنید که کلاس‌های زیر آن را پیاده‌سازی کرده‌اند؛
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:494f8255-c6a2-44a2-9f26-6fd2a2a74e8c" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public class FirstCommand : ICommand
+{
+    void Execute()
+    {
+        // Do something...
+    }
+}
+
+public class SecondCommand : ICommand
+{
+    void Execute()
+    {
+        // Do something...
+    }
+}</pre>
+</div>
+
+و حالا می‌خواهیم به صورت Dynamic در جایی از برنامه، و بر اساس یک پارامتر خاص یکی از دو کلاس بالا را ایجاد کنیم. دقت کنید که در حال استفاده از Dependency Injection هستیم و نمی‌توانیم از کلمه کلیدی new استفاده کنیم. پس برای این کار یک Abstract Factory می‌سازیم که با دریافت نام یک Command آن را ایجاد می‌کند. در اینجا از <a href="http://en.wikipedia.org/wiki/Convention_over_configuration" target="_blank">Convention Over Configuration</a> استفاده می‌کنیم؛
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:54ee96d7-e9a4-441b-9a4a-23742d6d32e0" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public interface ICommandFactory
+{
+    ICommand Create(string name);
+}
+
+public class CommandFactory : ICommandFactory
+{
+    private IUnityContainer container;
+
+    public CommandFactory(IUnityContainer container)
+    {
+        this.container = container;
+    }
+
+    public static Type[] GetCommandTypes()
+    {
+        var commandInterfaceType = typeof(ICommand);
+        return commandInterfaceType.Assembly
+            .GetTypes()
+            .Where(t =&gt; t.GetInterfaces().Any(i =&gt; i == commandInterfaceType))
+            .ToArray();
+    }
+
+    public ICommand Create(string name)
+    {
+        var commandName = string.Format("{0}Command", name);
+
+        var commandType = CommandFactory
+            .GetCommandTypes()
+            .FirstOrDefault(c =&gt; c.Name == commandName);
+
+        if (commandType == null)
+        {
+            throw new Exception("Couldn't find a command with the specified name.");
+        }
+
+        return (ICommand)this.container.Resolve(commandType);
+    }
+}</pre>
+</div>
+
+همان طور که می‌بینید IUnityContainer به عنوان ورودی سازنده به این کلاس تزریق خواهد شد.
+
+> البته متد GetCommandTypes با Reflection کار می‌کند و مطمئناً از کارایی بالایی برخوردار نیست ولی در نسخه نهایی این موضوع را با استفاده از <a href="http://en.wikipedia.org/wiki/Singleton_pattern" target="_blank">Singleton</a> بهبود داده‌ام. لینک دانلود سورس این برنامه در پایان این پست موجود است.
+
+جهت شبیه سازی بیشتر محیط واقعی، یک کلاس دیگر برای استفاده از این Factory می‌سازیم؛
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:f4e70203-47e9-4593-abe3-6595ce6570e1" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public class MyService
+{
+    private ICommandFactory commandFactory;
+
+    public MyService(ICommandFactory commandFactory)
+    {
+        this.commandFactory = commandFactory;
+    }
+
+    public void Invoke()
+    {
+        var command = this.commandFactory.Create("First");
+        command.Execute();
+
+        command = this.commandFactory.Create("Second");
+        command.Execute();
+    }
+}</pre>
+</div>
+
+در این کلاس فقط از CommandFactory جهت ایجاد دو Command به صورت Dynamic استفاده می‌شود که می‌تواند کاربردهای زیادی داشته باشد.
+
+و اما Composition Root برنامه که برای برنامه‌های Console همان متد Main است؛
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:26c7ccf7-1b74-4443-8851-38c10e6f2ed3" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">class Program
+{
+    static void Main(string[] args)
+    {
+        // Setup DI container
+        var container = new UnityContainer();
+        container.RegisterType&lt;ICommandFactory, CommandFactory&gt;();
+
+        // Resolve my composition root object
+        var myService = container.Resolve&lt;MyService&gt;();
+
+        // Execute
+        myService.Invoke();
+
+        // See what happened
+        Console.ReadKey();
+    }
+}</pre>
+</div>
+
+همانطور که مشاهده می‌کنید، در خط ۷، فقط CommandFactory ثبت (Register) شده. اما در هنگام Resolve شدن CommandFactory لازم است تا IUnityContainer هم Resolve شود ولی ما آن را ثبت (Register) نکرده‌ایم. عملیات Resolve در خط ۱۰ به ترتیب زیر اتفاق می‌افتد:
+
+  * MyService 
+      * ICommandFactory 
+          * CommandFactory 
+              * IUnityContainer
+
+پس چطور برنامه اجرا می‌شود؟ نکته جالب اینجاست که Unity در هنگام Resolve به صورت پیشفرض IUnityContainer را Resolve کرده و خودش را به جای آن تزریق می‌کند و به عبارت ساده **نیازی نداریم** تا IUnityContainer را مثلاً به شکل زیر ثبت کنیم؛
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:4f6f03a3-0a35-408c-b1e8-5231e8510863" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">container.RegisterType&lt;IUnityContainer&gt;(new InjectionFactory(c =&gt; c));</pre>
+</div>
+
+&nbsp;
+
+نسخه کامل برنامه را از <a href="http://www.dev-frame.com/Downloads/Sources/UnityFactorySample.zip" target="_blank">اینجا</a> دریافت و اجر کنید. برای اجرا به <a href="http://www.microsoft.com/visualstudio/eng/products/visual-studio-express-for-windows-desktop" target="_blank">Visual Studio 2012</a> نیاز دارید.
+
+هر چند در این پست پیاده‌سازی Abstract Factory با استفاده از Unity شرح داده شد اما این مطالب، به هر Dependency Injection Container دیگری (مثل <a href="http://www.ninject.org/" target="_blank">Ninject</a>) نیز قابل تعمیم است.

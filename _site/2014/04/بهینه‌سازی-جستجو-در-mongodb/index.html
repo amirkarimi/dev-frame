@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>بهینه‌سازی جستجو در MongoDB</title>
+  <meta name="description" content="در ساعات اوج، هر جستجو در کتب نمایشگاه تا حتی چند ثانیه طول می‌کشید. مشکل از Regular Expression بود.">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2014/04/%d8%a8%d9%87%db%8c%d9%86%d9%87%e2%80%8c%d8%b3%d8%a7%d8%b2%db%8c-%d8%ac%d8%b3%d8%aa%d8%ac%d9%88-%d8%af%d8%b1-mongodb/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">بهینه‌سازی جستجو در MongoDB</h1>
+    <p class="post-meta">Apr 26, 2014 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p>در ساعات اوج، هر جستجو در کتب نمایشگاه تا حتی چند ثانیه طول می‌کشید. مشکل از Regular Expression بود.</p>
+
+<p>من برای جستجو در مثلا عنوان کتاب از کوئری زیر استفاده می‌کردم:</p>
+
+<pre class="brush: jscript; title: ; notranslate" title="">{ "title": /متن جستجو/i }
+
+</pre>
+
+<p>چون Regular Expression یک زبان کامل است امکان استفاده از اندیس‌ها در این حالت وجود ندارد و یک کوئری ساده روی چند صد هزار رکورد ممکن است تا ۱ ثانیه طول بکشد.</p>
+
+<p>البته این کوئری قابلیت استفاده از اندیس‌ها را دارد:</p>
+
+<pre class="brush: jscript; title: ; notranslate" title="">{ "title": /^متن جستجو/i }
+
+</pre>
+
+<p>ولی فقط عناوینی را بر می‌گردانند که با متن جستجو شروع شده باشند. معمولا ما در جستجو‌ها دنبال چنین حالتی نیستیم و فقط می‌خواهیم عبارت مورد نظرمان در هر جای متن که بود پیدا شود. پس این حالت هم پاسخگو نیست.</p>
+
+<p>یک راه دیگر می‌ماند و آن استفاده از کلمه‌های کلیدی است. به این ترتیب که ابتدا همه رکوردهای موجود را بررسی کرده و از هر فیلد یک سری کلمه کلیدی استخراج کرد و آن‌ها را برای آن رکورد ذخیره کرد.</p>
+
+<p>من اسکریپت زیر را برای اینکار نوشتم</p>
+
+<pre class="brush: jscript; title: ; notranslate" title="">function getKeywords(field) {
+    if (field) {
+        return field.toString().toLowerCase()
+            .replace(/,|،|\(|\)|\[|\]|\"|\'/g, " ")
+            .match(/[^ ]+/g);
+    }
+}
+
+db.books.find().forEach(function(doc){
+    doc.keywords = {};
+    doc.keywords.title = getKeywords(doc.title)
+    doc.keywords.subject = getKeywords(doc.subject)
+    doc.keywords.author = getKeywords(doc.author)
+    doc.keywords.translator = getKeywords(doc.translator)
+    doc.keywords.publisher = getKeywords(doc.publisher)
+    doc.keywords.distributor = getKeywords(doc.distributor)
+
+    db.books.save(doc);
+});
+
+db.books.ensureIndex({"keywords.title":1})
+db.books.ensureIndex({"keywords.subject":1})
+db.books.ensureIndex({"keywords.author":1})
+db.books.ensureIndex({"keywords.translator":1})
+db.books.ensureIndex({"keywords.publisher":1})
+db.books.ensureIndex({"keywords.distributor":1})
+
+</pre>
+
+<p>با اجرای آن از هر فیلد یک آرایه استخراج می‌شود که به صورت جداگانه ذخیره کردم و در در آخر هم برای هر یک از این آرایه‌ها اندیس‌گذاری کردم.</p>
+
+<p>حالا مثلاً کتابهایی که در عنوان آن‌ها عبارت جاوا وجود داشته باشد با کوئری زیر برگردانده می‌شوند</p>
+
+<pre class="brush: jscript; title: ; notranslate" title="">{ "keywords.title": "java" }
+
+</pre>
+
+<p>اما زمان اجرای آن تقریبا برابر صفر است! بی نهایت سریعتر از Regular Expression عمل می‌کند. فقط لازم است که در هنگام جستجو عبارت مورد نظر کاربر را به درستی تقسیم کرد تا به نتیجه مورد نظرش برسد.</p>
+
+<p>مثلاً اگر کاربر عبارت «شعر فارسی» را جستجو کند نباید همین عبارت عیناً در کوئری قرار گیرد بلکه باید به دو عبارت «شعر» و «فارسی» تقسیم شده و با دستور زیر جستجو شود</p>
+
+<pre class="brush: jscript; title: ; notranslate" title="">{ "keywords.subject": { $all: ["شعر", "فارسی"] } }
+
+</pre>
+
+<p>فقط در این حالت ترتیب مهم نیست و هر عبارتی که در آن «شعر» و «فارسی» باشد جزو نتایج جستجو است.</p>
+
+<p>نکته اینکه اگر می‌خواستم تنها روی یک فیلد چنین امکانی داشته باشم خود Mongo امکانش را از طریق <a href="http://docs.mongodb.org/manual/core/index-text/" target="_blank">اندیس متنی </a>می‌داد.</p>
+
+<p>باید به این نکته هم توجه کرد که تعداد مراجعات به وب سایت نمایشگاه کتاب انقدر زیاد است که حتی سیستم آمارگیری که استفاده می‌کردم به مشکل خورد! به هر حال حالا سرعت جستجو نشان دهنده قدرت واقعی تکنلوژی استفاده شده است.</p>
+
+<p>حالا لود سیستم که به ۶ هم رسیده بود به حالت اول بازگشت ولی مقدار رم مصرفی بیشتر شده که طبیعی است:</p>
+
+<p style="text-align: center;">
+  <a href="/wp-content/uploads/2014/04/systemload-2014-04-26-192959.png"><img class="size-full wp-image-467 aligncenter" alt="systemload 2014-04-26 19:29:59" src="/wp-content/uploads/2014/04/systemload-2014-04-26-192959.png" width="498" height="68" srcset="/wp-content/uploads/2014/04/systemload-2014-04-26-192959.png 498w, /wp-content/uploads/2014/04/systemload-2014-04-26-192959-300x40.png 300w" sizes="(max-width: 498px) 100vw, 498px" /></a>
+</p>
+
+<p><span style="line-height: 1.5em;">لطفاً امتحان کنید و نظر بدید: </span><a style="line-height: 1.5em;" href="http://www.tibf.ir/fa/book" target="_blank">http://www.tibf.ir/fa/book</a></p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

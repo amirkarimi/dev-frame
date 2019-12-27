@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>چرا از DependencyResolver در ASP.NET MVC استفاده نمی‌کنم؟</title>
+  <meta name="description" content="یکی از راه‌های استفاده از Dependency Injection در ASP.NET MVC استفاده از متد DependencyResolver.SetResolver است. اما من هیچ وقت از آن استفاده نمی‌کنم. هر چند...">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2013/07/%da%86%d8%b1%d8%a7-%d8%a7%d8%b2-dependencyresolver-%d8%af%d8%b1-asp-net-mvc-%d8%a7%d8%b3%d8%aa%d9%81%d8%a7%d8%af%d9%87-%d9%86%d9%85%db%8c%e2%80%8c%da%a9%d9%86%d9%85%d8%9f/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">چرا از DependencyResolver در ASP.NET MVC استفاده نمی‌کنم؟</h1>
+    <p class="post-meta">Jul 29, 2013 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p>یکی از راه‌های استفاده از <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank">Dependency Injection</a> در ASP.NET MVC استفاده از متد <a href="http://msdn.microsoft.com/en-us/library/gg416564(v=vs.108).aspx" target="_blank">DependencyResolver.SetResolver</a> است. اما من هیچ وقت از آن استفاده نمی‌کنم. هر چند DependencyResolver از <a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/" target="_blank">ضد الگوی Service Locator</a> استفاده می‌کند ولی دلیل من برای عدم استفاده از آن فقط این نیست.</p>
+
+<p>بسیاری از DI Container ها از HTTP Context Lifetime پشتیبانی می‌کنند که فقط مختص محیط وب است؛ یعنی هر گاه HTTP Request آغاز می‌شود یک Container مسئول ایجاد اشیاء شده و تا انتهای اجرای HTTP Request باقی می‌ماند. بعد از اتمام HTTP Request تمامی اشیاء ایجاد شده که IDisposable باشند از بین خواهند رفت و سپس خود Container نابود می‌شود.</p>
+
+<p>مهم‌ترین دلیل من برای استفاده نکردن از DependencyResolver، مدیریت Lifetime است. Lifetime مورد نظر من HTTP Request نیست بلکه Controller است. خوشبختانه در ایجاد Controller ها در ASP.NET MVC از Factory Pattern استفاده شده و با پیاده‌سازی <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.icontrollerfactory(v=vs.108).aspx" target="_blank">IControllerFactory</a> می‌توان Factory خود را داشت. من هم همین کار را در <a href="https://github.com/AmirKarimi/Xoqal" target="_blank">چارچوب زغال</a> انجام دادم و یک Factory‌ به نام <a href="https://github.com/AmirKarimi/Xoqal/blob/master/Source/Xoqal.Web.Mvc/UnityControllerFactory.cs" target="_blank">UnityControllerFactory</a> ایجاد کردم. که با دستور زیر می‌توان آن‌را در Global.asax.cs ثبت کرد:</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:ce0aea07-d6b2-45f7-b395-2d9eaf6ccb10" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">ControllerBuilder.Current.SetControllerFactory(new DefaultControllerFactory(myContainer));</pre>
+</div>
+
+<p>Unity Container به صورت پیش‌فرض از HTTP Request Lifetime پشتیبانی نمی‌کند اما در عوض از Hierarchical Lifetime بهره می‌برد. هر Container در Unity می‌تواند Fork شده و از خودش زیر مجموعه‌هایی ایجاد کنند که دقیقاً مشخصات پدرشان را دارند اما دارای Lifetime جداگانه هستند. وقتی این Containerهای فرزند نابود می‌شوند تمام اشیایی که توسط خودشان ایجاد شده و دارای طول عمر Hierarchical باشند را هم با خود نابود خواهند کرد.</p>
+
+<p>برای ثبت یک وابستگی با طول عمر Hierarchical Lifetime در Unity به شکل زیر عمل می‌شود:</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:f455e049-1686-4bf1-a54e-267a46b899fd" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">myContainer
+    .RegisterType&lt;Data.IUserRepository, Data.UserRepository&gt;(
+        new HierarchicalLifetimeManager())</pre>
+</div>
+
+<p>اما چرا این حد کنترل Lifetime برایم مهم است؟</p>
+
+<p>علاوه بر اینکه با استفاده از IControllerFactory ضد الگوی Service Locator را دور زده‌ایم و علاوه بر اینکه قدرت بیشتری در مدیریت Litetime خواهیم داشت علت دیگری هم وجود دارد؛ برای برنامه‌های رو میزی و موبایل نمی‌توان از HTTP Request Lifetime استفاده کرد و هر یک باید با توجه به نوع برنامه به صورت خاصی تنظیم شوند. مطمئناً می‌توان از Lifetime های دیگری بهره برد اما در اینجا پشتیبانی از ساختار Hierarchical در Unity کمک می‌کند تا برای انواع برنامه‌های وب، رومیزی و موبایل ساختار یکنواخت‌تری داشته باشیم. تصور کنید بخواهیم یک برنامه Tab-based رومیزی ایجاد کنیم که Lifetime مورد نظر ما یک Tab باشد. باز هم Hierarchical Lifetime کمک می‌کند.</p>
+
+<p>چون یکی از اهداف اصلی چارچوب زغال ایجاد یک بستر یکنواخت برای انواع برنامه‌های وب، رومیزی و … است، <a href="https://github.com/AmirKarimi/Xoqal/blob/master/Source/Xoqal.Web.Mvc/UnityControllerFactory.cs" target="_blank">UnityControllerFactory</a> در زغال گنجانده شده است. امیدوارم در آینده در کنار پروژه‌های Xoqal.Web.Mvc و Xoqal.Presentation ، پروژه‌هایی مانند Xoqal.Xamarin و Xoqal.ServiceStack هم داشته باشیم و علاوه بر Unity از DI Container های دیگری هم پشتیبانی کنیم.</p>
+
+<blockquote>
+  <ul>
+    <li><a href="http://www.xamarin.com/" target="_blank">Xamarin</a> یک شرکت نرم‌افزاری است که ابزارهایی برای برنامه‌نویسی بر روی پلتفرم‌های iOS و Andorid با استفاده از زبان <code class="highlighter-rouge">C#</code> در محیط <code class="highlighter-rouge">.NET</code> فراهم کرده است.</li>
+    <li><a href="http://www.servicestack.net/" target="_blank">Service Stack</a> یک کتابخانه بسیار قوی با معماری اصولی برای ایجاد وب سرویس‌های REST است.</li>
+  </ul>
+</blockquote>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

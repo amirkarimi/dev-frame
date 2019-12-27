@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>از برتری‌های اسکالا نسبت به سی شارپ &#8211; ۱</title>
+  <meta name="description" content="  حالا که همزمان بر روی یک پروژه‌ با زبان سی شارپ و یک پروژه دیگر با زبان اسکالا کار می‌کنم مقایسه این دو بیشتر خودش را نشان می‌دهد. سعی می‌کنم در یک سری پست...">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2014/04/%d8%a7%d8%b2-%d8%a8%d8%b1%d8%aa%d8%b1%db%8c%e2%80%8c%d9%87%d8%a7%db%8c-%d8%a7%d8%b3%da%a9%d8%a7%d9%84%d8%a7-%d9%86%d8%b3%d8%a8%d8%aa-%d8%a8%d9%87-%d8%b3%db%8c-%d8%b4%d8%a7%d8%b1%d9%be-%db%b1/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">از برتری‌های اسکالا نسبت به سی شارپ &#8211; ۱</h1>
+    <p class="post-meta">Apr 6, 2014 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <blockquote>
+  <p>حالا که همزمان بر روی یک پروژه‌ با زبان سی شارپ و یک پروژه دیگر با زبان اسکالا کار می‌کنم مقایسه این دو بیشتر خودش را نشان می‌دهد. سعی می‌کنم در یک سری پست این مقایسه‌ها که نشان دهنده برتری اسکالا است را معرفی کنم.</p>
+</blockquote>
+
+<p>در واقع این مورد، برتری Function Programming است و همچنین نشان می‌دهد پشتیبانی از Lambda در یک زبان الزاماً به معنی پشتیبانی از Functional Programming در آن زبان نیست.</p>
+
+<p>در سی شارپ وقتی بخواهیم یک خصیصه از یک شی را نمایش دهیم در حالی که مطمئن نیستیم آن شی Null است و در صورت Null بودن می‌خواهیم یک مقدار پیشفرض (مثل یک رشته خالی) را نمایش دهیم. به این صورت عمل می‌کنیم:</p>
+
+<pre class="brush: csharp; title: ; notranslate" title="">nullableObj == null ? "" : nullableObj.Property
+</pre>
+
+<p>اما اگر آن شی با صدا زدن یک متد به دست بیاید باید به شکل زیر عمل کرد:</p>
+
+<pre class="brush: csharp; title: ; notranslate" title="">obj.GetSomething() == null ? "" : obj.GetSomething().Property
+</pre>
+
+<p>که اغلب نمی‌خواهیم یک متد را دو بار صدا بزنیم پس باید آنرا در یک متغییر ذخیره و بعد استفاده کنیم که به شکل زیر در می‌آید:</p>
+
+<pre class="brush: csharp; title: ; notranslate" title="">var nullableObj = obj.GetSomething()
+nullableObj == null ? "" : nullableObj.Property
+</pre>
+
+<p>تصور کنید می‌خواهیم عبارت بالا را در یک Razor View درج کنیم. چون یک انتصاب به متغییر وجود دارد، کار سخت می‌شود:</p>
+
+<pre class="brush: plain; title: ; notranslate" title="">@{
+var nullableObj = Model.GetSomething()
+}
+
+...
+
+@(nullableObj == null ? "" : nullableObj.Property)
+</pre>
+
+<p>اما در اسکالا یک نوع وجود دارد به نام <a href="http://www.scala-lang.org/files/archive/api/current/#scala.Option" target="_blank">Option</a> که وقتی قرار است یک شی تهی باشد پیشنهاد می‌شود از این نوع استفاده شود. مثلاً اگر بین رشته خالی و تهی تفاوت قائل هستید باید از نوع <code class="highlighter-rouge">Option[String]</code> استفاده کنید (در اسکالا برای معرفی نوع‌های Generic به جای کارکتر‌های &lt;&gt; از [] استفاده می‌شود مثلا در سی شارپ داریم <code class="highlighter-rouge">Type1&lt;Type2&gt;</code> در حالی که معادل آن در اسکالا می‌شود <code class="highlighter-rouge">Type1[Type2]</code>). Option تقریبا معادل Nullable در سی شارپ است.</p>
+
+<p>با استفاده از Option، عبارت بالا به شکل زیر در اسکالا نوشته می‌شود:</p>
+
+<pre class="brush: scala; title: ; notranslate" title="">obj.getSomething.map(_.property).getOrElse("")
+</pre>
+
+<p>همین عبارت را می‌توان در View Template پیشفرض Play استفاده کرد و مثل سی شارپ نیازی به انتصاب یک متغییر اضافی نیست.</p>
+
+<p>این عبارت را می‌توان به شکل‌های مختلف دیگری هم نوشت و البته دفعه اول که کد‌های شبیه این را می‌دیدم فکر می‌کردم سخت و ناخواناست ولی به هر شکل آن که عادت کنید دیگر نوشتن کد با زبان‌هایی مثل سی شارپ واقعاً سخت می‌شود. الان وقتی روی سی شارپ کد می‌زنم احساس می‌کنم از ویندوز ۷ به ویندوز XP مهاجرت کردم. یک حس نوستالژیک دارم ولی انگار دست و پایم را بسته‌اند!</p>
+
+<p>نکته بسیار مهم اینکه این ویژگی در کتابخانه استاندارد اسکالا تعریف شده و فقط ویژگی زبان نیست. زبان اسکالا طوری طراحی شده که به راحتی بتوان ویژگی‌های جدید به آن اضافه کرد (که البته یک شمشیر دو لبه است).</p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

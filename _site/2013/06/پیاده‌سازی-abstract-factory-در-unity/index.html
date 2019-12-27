@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>پیاده‌سازی Abstract Factory در Unity</title>
+  <meta name="description" content="هنگام استفاده از Dependency Injection گاهی اوقات لازم است که از یک Factory برای ایجاد اشیاء جدید استفاده کنیم چون مسیر Composition Root جواب کار ما را نمی‌ده...">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2013/06/%d9%be%db%8c%d8%a7%d8%af%d9%87%e2%80%8c%d8%b3%d8%a7%d8%b2%db%8c-abstract-factory-%d8%af%d8%b1-unity/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">پیاده‌سازی Abstract Factory در Unity</h1>
+    <p class="post-meta">Jun 8, 2013 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p>هنگام استفاده از <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank">Dependency Injection</a> گاهی اوقات لازم است که از یک <a href="http://en.wikipedia.org/wiki/Factory_(software_concept)" target="_blank">Factory</a> برای ایجاد اشیاء جدید استفاده کنیم چون مسیر <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/" target="_blank">Composition Root</a> جواب کار ما را نمی‌دهد. مخصوصاً در هنگام استفاده از <a href="http://en.wikipedia.org/wiki/Strategy_pattern" target="_blank">Strategy Pattern</a>.</p>
+
+<p>برای این کار می‌توانیم یک کلاس داشته باشیم که Container را به عنوان ورودی دریافت کند (به عنوان Constructor Dependency) و از آن برای ایجاد اشیاء استفاده کند. فقط باید دقت داشته باشیم Factory ما قرار نیست هر چیزی را ایجاد کند و در واقع یک <a href="http://en.wikipedia.org/wiki/Abstract_factory_pattern" target="_blank">Abstract Factory</a> است.</p>
+
+<p>اینترفیس زیر را در نظر بگیرد؛</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:5c4c97ff-e354-43ae-809f-8382037279a8" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public interface ICommand
+{
+    void Execute();
+}</pre>
+</div>
+
+<p>و فرض کنید که کلاس‌های زیر آن را پیاده‌سازی کرده‌اند؛</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:494f8255-c6a2-44a2-9f26-6fd2a2a74e8c" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public class FirstCommand : ICommand
+{
+    void Execute()
+    {
+        // Do something...
+    }
+}
+
+public class SecondCommand : ICommand
+{
+    void Execute()
+    {
+        // Do something...
+    }
+}</pre>
+</div>
+
+<p>و حالا می‌خواهیم به صورت Dynamic در جایی از برنامه، و بر اساس یک پارامتر خاص یکی از دو کلاس بالا را ایجاد کنیم. دقت کنید که در حال استفاده از Dependency Injection هستیم و نمی‌توانیم از کلمه کلیدی new استفاده کنیم. پس برای این کار یک Abstract Factory می‌سازیم که با دریافت نام یک Command آن را ایجاد می‌کند. در اینجا از <a href="http://en.wikipedia.org/wiki/Convention_over_configuration" target="_blank">Convention Over Configuration</a> استفاده می‌کنیم؛</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:54ee96d7-e9a4-441b-9a4a-23742d6d32e0" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public interface ICommandFactory
+{
+    ICommand Create(string name);
+}
+
+public class CommandFactory : ICommandFactory
+{
+    private IUnityContainer container;
+
+    public CommandFactory(IUnityContainer container)
+    {
+        this.container = container;
+    }
+
+    public static Type[] GetCommandTypes()
+    {
+        var commandInterfaceType = typeof(ICommand);
+        return commandInterfaceType.Assembly
+            .GetTypes()
+            .Where(t =&gt; t.GetInterfaces().Any(i =&gt; i == commandInterfaceType))
+            .ToArray();
+    }
+
+    public ICommand Create(string name)
+    {
+        var commandName = string.Format("{0}Command", name);
+
+        var commandType = CommandFactory
+            .GetCommandTypes()
+            .FirstOrDefault(c =&gt; c.Name == commandName);
+
+        if (commandType == null)
+        {
+            throw new Exception("Couldn't find a command with the specified name.");
+        }
+
+        return (ICommand)this.container.Resolve(commandType);
+    }
+}</pre>
+</div>
+
+<p>همان طور که می‌بینید IUnityContainer به عنوان ورودی سازنده به این کلاس تزریق خواهد شد.</p>
+
+<blockquote>
+  <p>البته متد GetCommandTypes با Reflection کار می‌کند و مطمئناً از کارایی بالایی برخوردار نیست ولی در نسخه نهایی این موضوع را با استفاده از <a href="http://en.wikipedia.org/wiki/Singleton_pattern" target="_blank">Singleton</a> بهبود داده‌ام. لینک دانلود سورس این برنامه در پایان این پست موجود است.</p>
+</blockquote>
+
+<p>جهت شبیه سازی بیشتر محیط واقعی، یک کلاس دیگر برای استفاده از این Factory می‌سازیم؛</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:f4e70203-47e9-4593-abe3-6595ce6570e1" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">public class MyService
+{
+    private ICommandFactory commandFactory;
+
+    public MyService(ICommandFactory commandFactory)
+    {
+        this.commandFactory = commandFactory;
+    }
+
+    public void Invoke()
+    {
+        var command = this.commandFactory.Create("First");
+        command.Execute();
+
+        command = this.commandFactory.Create("Second");
+        command.Execute();
+    }
+}</pre>
+</div>
+
+<p>در این کلاس فقط از CommandFactory جهت ایجاد دو Command به صورت Dynamic استفاده می‌شود که می‌تواند کاربردهای زیادی داشته باشد.</p>
+
+<p>و اما Composition Root برنامه که برای برنامه‌های Console همان متد Main است؛</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:26c7ccf7-1b74-4443-8851-38c10e6f2ed3" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">class Program
+{
+    static void Main(string[] args)
+    {
+        // Setup DI container
+        var container = new UnityContainer();
+        container.RegisterType&lt;ICommandFactory, CommandFactory&gt;();
+
+        // Resolve my composition root object
+        var myService = container.Resolve&lt;MyService&gt;();
+
+        // Execute
+        myService.Invoke();
+
+        // See what happened
+        Console.ReadKey();
+    }
+}</pre>
+</div>
+
+<p>همانطور که مشاهده می‌کنید، در خط ۷، فقط CommandFactory ثبت (Register) شده. اما در هنگام Resolve شدن CommandFactory لازم است تا IUnityContainer هم Resolve شود ولی ما آن را ثبت (Register) نکرده‌ایم. عملیات Resolve در خط ۱۰ به ترتیب زیر اتفاق می‌افتد:</p>
+
+<ul>
+  <li>MyService
+    <ul>
+      <li>ICommandFactory
+        <ul>
+          <li>CommandFactory
+            <ul>
+              <li>IUnityContainer</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>پس چطور برنامه اجرا می‌شود؟ نکته جالب اینجاست که Unity در هنگام Resolve به صورت پیشفرض IUnityContainer را Resolve کرده و خودش را به جای آن تزریق می‌کند و به عبارت ساده <strong>نیازی نداریم</strong> تا IUnityContainer را مثلاً به شکل زیر ثبت کنیم؛</p>
+
+<div class="wlWriterEditableSmartContent" id="scid:f32c3428-b7e9-4f15-a8ea-c502c7ff2e88:4f6f03a3-0a35-408c-b1e8-5231e8510863" style="float: none; margin: 0px; display: inline; padding: 0px;">
+  <pre class="brush: c#;toolbar:false;">container.RegisterType&lt;IUnityContainer&gt;(new InjectionFactory(c =&gt; c));</pre>
+</div>
+
+<p> </p>
+
+<p>نسخه کامل برنامه را از <a href="http://www.dev-frame.com/Downloads/Sources/UnityFactorySample.zip" target="_blank">اینجا</a> دریافت و اجر کنید. برای اجرا به <a href="http://www.microsoft.com/visualstudio/eng/products/visual-studio-express-for-windows-desktop" target="_blank">Visual Studio 2012</a> نیاز دارید.</p>
+
+<p>هر چند در این پست پیاده‌سازی Abstract Factory با استفاده از Unity شرح داده شد اما این مطالب، به هر Dependency Injection Container دیگری (مثل <a href="http://www.ninject.org/" target="_blank">Ninject</a>) نیز قابل تعمیم است.</p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

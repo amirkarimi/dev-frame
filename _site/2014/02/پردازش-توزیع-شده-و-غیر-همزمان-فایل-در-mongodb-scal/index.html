@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>پردازش توزیع شده و غیر همزمان تصویر در MongoDB با Scala</title>
+  <meta name="description" content="MongoDB فایل‌های بزرگتر از ۱۶ مگابایت را به صورت تکه تکه شده ذخیره می‌کند. به هر کدام از این تکه‌ها یک Chunk می‌گویند. قوانینی که برای ذخیره و بازیابی فایل د...">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2014/02/%d9%be%d8%b1%d8%af%d8%a7%d8%b2%d8%b4-%d8%aa%d9%88%d8%b2%db%8c%d8%b9-%d8%b4%d8%af%d9%87-%d9%88-%d8%ba%db%8c%d8%b1-%d9%87%d9%85%d8%b2%d9%85%d8%a7%d9%86-%d9%81%d8%a7%db%8c%d9%84-%d8%af%d8%b1-mongodb-scal/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">پردازش توزیع شده و غیر همزمان تصویر در MongoDB با Scala</h1>
+    <p class="post-meta">Feb 10, 2014 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p><a href="http://www.mongodb.org/" target="_blank">MongoDB</a> فایل‌های بزرگتر از ۱۶ مگابایت را به صورت تکه تکه شده ذخیره می‌کند. به هر کدام از این تکه‌ها یک Chunk می‌گویند. قوانینی که برای ذخیره و بازیابی فایل در MongoDB وضع شده <a href="http://docs.mongodb.org/manual/core/gridfs/" target="_blank">GridFS</a> نام دارد که توسط درایورهای MongoDB پیاده‌سازی می‌شود.</p>
+
+<p>وقتی می‌خواهیم یک فایل را از MongoDB بخوانیم، فایل به صورت Chunkهایی از آرایه‌های بایت ارائه می‌شوند (Chunks of Arrays of Bytes). مثلاً یک فایل ۱۰۰ مگا بایتی در ۱۰۰ قطعه ۱ کیلوبایتی ارائه می‌شود.</p>
+
+<p>چرا سازندگان روانی MongoDB این قانون را وضع کردند؟ MongoDB یک بانک اطلاعات است که از اول برای توزیع فیزیکی طراحی شده و ممکن است لازم باشد یک فایل بزرگ در بین ماشین‌های مختلف توزیع شود. و توزیع یک فایل ۱۰۰ مگابایتی سخت از توزیع ۱۰۰ قطعه یک کلیو بایتی است.</p>
+
+<p>اگر هم نخواهیم فایل را در Mongo ذخیره کنیم و فقط مسیر فایل را در بانک ذخیره کنیم آن وقت اگر بخواهیم برنامه‌ را به صورت توزیع شده روی چند سرور اجرا کنیم مشکلات زیادی در Sync کردن فولدری که فایل‌ها را در آن‌ها نگهداری می‌کنیم خواهیم داشت. توجه کنید که ممکن است Sync دو طرفه باشد. اگر هم بخواهیم یک فولدر مرکزی Share شده برای فایل‌ها بگذاریم که دیگر سیستممان توزیع شده نیست!</p>
+
+<p>تا اینجا خیلی مسئله پیچیده‌ای نبود. نکته مهم اینجاست که در برنامه‌نویسی غیر همزمان در هنگام خواندن یک فایل از Mongo ما نمی‌توانیم صبر کنیم تا تمام قطعات برسند و بعد آنها را به هم بچسبانیم و ارائه دهیم یا حرکتی روی آن‌ها بزنیم. بلکه با رسیدن هر قطعه به صورت Event-driven به ما اطلاع داده می‌شود و باید یک جوری قطعه‌ها را به هم بچسبانیم یا (از آن بهتر) روی همان قطعه کوچک کار کنیم و همان را به مصرف کننده پاس دهیم.</p>
+
+<p><span style="line-height: 1.5em;">خوشبختانه در چارچوب Play امکانی فراهم شده که اجازه می‌دهد همانطور که MongoDB قطعه، قطعه فایل‌ها را به دست ما می‌رساند ما هم آنها را دست به دست به دست Browser کاربر نهایی برسانیم. کل ماجرا با جزئیاتش پیچیده‌ است ولی با کمک ویژگی‌های Scala واقعاً به راحتی انجام می‌شود. مفهومی وجود دارد به نام </span><a style="line-height: 1.5em;" href="http://mandubian.com/2012/08/27/understanding-play2-iteratees-for-normal-humans/" target="_blank">Iteratee</a><span style="line-height: 1.5em;"> (درکش کمی مشکل است ولی واقعاً کاربردی است) که با کمک آن این‌ قبیل کارها راحتتر انجام می‌شود.</span></p>
+
+<p>اما یک مشکل دیگر وجود دارد؛ مثلاً فرض کنید یک فایل تصویری در MongoDB داریم که می‌خواهیم در لحظه (بعد از درخواست Browser) سایز آن را تغییر دهیم (از آن Thumbnail بسازیم). قبلاً اکثر ما بارها در #C آن را انجام دادیم و کتابخانه‌های مکفی برای اینکار وجود دارند. فایل تصویر را می‌خوانیم، (در قالب Stream یا آرایه‌ای از بایت) به کتابخانه Image Resizer محبوبمان می‌سپاریم و تصویر Resize شده را تحویل می‌گیریم بعد آن را با HTTP به سمت Browser می‌فرستیم. جداً کار سختی نیست. مثل شکل زیر:</p>
+
+<p style="text-align: center;">
+  <a href="/wp-content/uploads/2014/02/Screenshot-from-2014-02-11-001506.png"><img class="size-full wp-image-220 aligncenter" alt="پردازش خطی" src="/wp-content/uploads/2014/02/Screenshot-from-2014-02-11-001506.png" width="478" height="138" srcset="/wp-content/uploads/2014/02/Screenshot-from-2014-02-11-001506.png 478w, /wp-content/uploads/2014/02/Screenshot-from-2014-02-11-001506-300x86.png 300w" sizes="(max-width: 478px) 100vw, 478px" /></a>
+</p>
+
+<p>ولی من نمی‌خواهم یک فایل کامل را به یک کتابخانه بدهم تا آن را تبدیل به یک تصویر کوچکتر کند. همانطور که گفتم نمی‌توانم (نباید) صبر کنم تا فایل کامل شود و بعد به سراغ Resize کردن بروم. بلکه وقتی اولین قطعه از فایل (که ممکن است مثلاً ۱ کیلوبایت باشد) به دستم برسد باید شروع به محاسبات تغییر اندازه کنم و منتظر قطعه بعدی نباشم و تا همینجای کار را برای مصرف کننده ارسال کنم. به این ترتیب هم حافظه کمتری مصرف می‌کنم هم در زمان ترافیک بالا خیلی خیلی کمتر از منابع سیستم استفاده خواهم کرد. ولی این واقعاً پیچیده است؛ در مایه‌های فیلم‌های عملی تخیلی! مثل شکل زیر:</p>
+
+<p style="text-align: center;">
+  <a href="/wp-content/uploads/2014/02/Screenshot-from-2014-02-11-002029.png"><img class="aligncenter size-full wp-image-227" alt="پردازش قطعه قطعه" src="/wp-content/uploads/2014/02/Screenshot-from-2014-02-11-002029.png" width="543" height="156" srcset="/wp-content/uploads/2014/02/Screenshot-from-2014-02-11-002029.png 543w, /wp-content/uploads/2014/02/Screenshot-from-2014-02-11-002029-300x86.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></a>
+</p>
+
+<p>نمی‌دانم الگورتیمی وجود دارد که بتواند به صورت تکه تکه (نه از نظر تصویر بلکه از نظر محتوی فایل) یک فایل تصویری را Resize کند؟ اصلاً نمی‌دانم فرمت‌های تصویری مرسوم (Jpeg، Gif و …) قابلیت پردازش به این شکل را دارند یا نه؟</p>
+
+<p>ولی سعی کردم؛ در <a href="https://groups.google.com/forum/#!forum/reactivemongo" target="_blank">گروه ReactiveMongo</a> یک <a href="https://groups.google.com/forum/#!topic/reactivemongo/IlezQssBtOI" target="_blank">پست</a> ارسال کردم وتقاضای کمک کردم. اگر این کار ممکن باشد تاثیر به شدت زیادی در Preformance وب سایت‌هایی که با این روش ساخته می‌شوند خواهند داشت و پاسخگویی سرور به تعداد بالای کاربر به شدت افزایش پیدا می‌کند.</p>
+
+<p>هرچند پردازشی که روی تصویر انجام می‌شود ساده است ولی توزیع پذیری و کارایی بالای این روش قابل تعمیم است و قابل تصور نیست که چه کارهایی می‌توان با آن انجام داد.</p>
+
+<p><span style="line-height: 1.5em;">برای حسن ختام، </span><a style="line-height: 1.5em;" href="https://gist.github.com/gre/4058734" target="_blank">این یک قطعه کد بر روی چارچوب Play و زبان Scala است</a> <span style="line-height: 1.5em;">که یک فایل Zip را در همان زمان تولید، خرد خرد به کلاینت ارسال می‌کند (صبر نمی‌کند که اول فایل ایجاد شود و در آخر آن را ارسال کند).</span></p>
+
+<p>تا قبل از مهاجرت به Scala صحبت در مورد این روش پرداش اطلاعات واقعاً یک کار بسیار سخت یا نشدنی به نظر می‌رسید ولی الان حتی اگر این کارها به راحتی قابل انجام نباشد حداقل قابل لمس شده.</p>
+
+<p><em>توضیح: تصاویر این پست توسط نرم‌افزار <a href="http://www.libreoffice.org" target="_blank">LibreOffice</a> Draw و با بی دقتی بسیار اما به راحتی ساخته شده است. لطفاً اگر از Microsoft Visio استفاده می‌کنید و نمی‌توانید آن‌ را بخرید (کپی رایت را رعایت نمی‌کنید)، از LibreOffice Draw استفاده کنید.</em><a href="/wp-content/uploads/2014/02/Screenshot-from-2014-02-11-002029.png"><br />
+</a></p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

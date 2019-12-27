@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>تجربه کار با لینوکس مینت</title>
+  <meta name="description" content="">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2014/08/%d8%aa%d8%ac%d8%b1%d8%a8%d9%87-%da%a9%d8%a7%d8%b1-%d8%a8%d8%a7-%d9%84%db%8c%d9%86%d9%88%da%a9%d8%b3-%d9%85%db%8c%d9%86%d8%aa/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">تجربه کار با لینوکس مینت</h1>
+    <p class="post-meta">Aug 21, 2014 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p><a href="http://en.wikipedia.org/wiki/File:Linux_Mint_17_(Qiana)_Cinnamon.png" target="_blank"><img class=" alignleft" alt="لینوکس مینت (میزکار Cinnamon)" src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Linux_Mint_17_%28Qiana%29_Cinnamon.png/320px-Linux_Mint_17_%28Qiana%29_Cinnamon.png" width="320" height="180" /></a></p>
+
+<p>بعد از چند وقت کار با اوبونتو، چند روز قبل <a href="http://fa.wikipedia.org/wiki/%D9%84%DB%8C%D9%86%D9%88%DA%A9%D8%B3_%D9%85%DB%8C%D9%86%D8%AA" target="_blank">لینوکس مینت</a> را روی سیستمم نصب کردم.</p>
+
+<p>از آنجایی که فولدر home را روی پارتیشن دیگری mount کردم، به جز نصب بعضی از برنامه‌ها نیازی نیست تنظیمات خاص دیگری را انجام دهم. مثلا بعد از نصب لینوکس جدید، Thunderbird حتی لیست ایمیل‌هایی که قبلا دانلود کرده بود را هم نمایش می‌دهد.</p>
+
+<p>به نظر من مینت پاسخی به نیاز و نظر کاربران اوبونتو بوده است. مخصوصا منتقدان آن. مثلا بعد از نصب مینت واقعا نیازی نیست اندازی فونت‌ها را تغییر دهیم، یا سایز آیکون‌ها را کوچکتر کنیم. به صورت پیشفرض Java و Mono روی سیستم نصب هستند و حتی کاربران را تشویق می‌کند که برای اجرای برنامه‌های ویندوزی که دارند از Wine استفاده کنند. به طور کلی توزیعی است که سختگیری نمی‌کند.</p>
+
+<p>اما چند مشکل هم دارد. در برخی موارد خیلی Stable نیست و ظاهر بعضی برنامه‌ها مثل Eclipse و GnuCash کمی مشکل دارد. یک مشکل دیگر نمایش پنجره‌های باز است. در این باره کمی سنتی‌تر عمل شده و هر پنجره به صورت جداگانه در نوار پاینی نمایش داده می‌شود. اینکه در اوبونتو می‌توانستم با Scroll ماوس بین پنجره‌های یک برنامه به راحتی جابجا شوم، جایش به شدت در Cinnamon خالی است. هر چند برنامه‌های جانبی برای اینکار وجود دارد ولی هیچکدام به اندازه‌ی نوار Unity قابل اطمینان نیست.</p>
+
+<p>در کل نوآوری خاصی در مینت وجود ندارد ولی در عوض آزادی بیشتری به کاربر داده می‌شود. در جایی خواندم که مینت برای کسانی است که به آینده اوبونتو مشکوک هستند و نمی‌دانند قرار است چه اتفاقی بیفتد و به دنبال ثبات هستند.</p>
+
+<p>برای من ثبات بیش از حد، خسته‌کننده است و از نوآوری و تغییرات انقلابی حمایت می‌کنم. حس نوآوری و تفاوت و امید به اینکه در نسخه‌های بعدی اوبونتو با تغییرات جالبی روبرو خواهم بود، به اضافه Stable بودن سیستم باعث شد دوباره به اوبونتو برگردم. با این حال معتقدم مینت هم یکی از بهترین توزیع‌های موجود است.</p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

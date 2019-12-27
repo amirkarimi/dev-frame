@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>از تجربه ۸ ماه کار در مایکروسافت چه می‌توان آموخت؟</title>
+  <meta name="description" content="این پست را در وبلاگ آی کلاب خواندم که ترجمه‌ی یک پست از یکی از کارمندان جوان مایکروسافت است؛ Ahmet Alp Balkan. کلیت آن انتقاد از فرهنگ حاکم بر محل کار اوست. ...">
+  
+  <meta name="keywords" content="amir karimi, geek, programmer, solution architect, solution engineer, tech lead, senior software developer, senior engineer, sre, devops, scala, linux, rust, go, ruby, python" />
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/2013/06/%d8%a7%d8%b2-%d8%aa%d8%ac%d8%b1%d8%a8%d9%87-%db%b8-%d9%85%d8%a7%d9%87-%da%a9%d8%a7%d8%b1-%d8%af%d8%b1-%d9%85%d8%a7%db%8c%da%a9%d8%b1%d9%88%d8%b3%d8%a7%d9%81%d8%aa-%da%86%d9%87-%d9%85%db%8c%e2%80%8c/">
+  <link rel="alternate" type="application/rss+xml" title="چارچوب توسعه" href="http://localhost:4000/feed.xml" />
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">چارچوب توسعه</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/%25d8%25aa%25d9%2585%25d8%25a7%25d8%25b3.html">تماس</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586.html">درباره</a>
+          
+        
+          
+          <a class="page-link" href="/%25d8%25af%25d8%25b1%25d8%25a8%25d8%25a7%25d8%25b1%25d9%2587-%25d9%2585%25d9%2586/%25d8%25b3%25d8%25b1%25da%25af%25d8%25b0%25d8%25b4%25d8%25aa.html">سرگذشت</a>
+          
+        
+          
+          <a class="page-link" href="/%25d9%2587%25d9%2585%25da%25a9%25d8%25a7%25d8%25b1%25db%258c.html">همکاری</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">از تجربه ۸ ماه کار در مایکروسافت چه می‌توان آموخت؟</h1>
+    <p class="post-meta">Jun 21, 2013 • امیر کریمی</p>
+  </header>
+
+  <article class="post-content">
+    <p><a href="http://www.iclub.ir/what-i-learned-of-working-for-microsoft" target="_blank">این پست</a> را در وبلاگ آی کلاب خواندم که ترجمه‌ی <a href="http://ahmetalpbalkan.com/blog/8-months-microsoft/" target="_blank">یک پست</a> از یکی از کارمندان جوان مایکروسافت است؛ <em>Ahmet Alp Balkan. کلیت آن انتقاد از فرهنگ حاکم بر محل کار اوست. خواندن پست او و ترجمه آن یک تجربه است و خواندن کامنت‌های پست اصلی یک تجربه دیگر. حتماً پیشنهاد می‌کنم کامنت‌ها را در وبلاگ اصلی مطالعه کنید، <a href="http://www.hanselman.com/" target="_blank">Hanselman</a> هم در آنجا کامنت گذاشته. کاملاً قابل انتظار است که بسیاری از افراد از این پست برای تایید انتقادات خود از مایکروسافت یا شرکت‌های بزرگ دیگر استفاده کنند و جنگ مذهبی به راه بیفتد! اما من دوست دارم از این مطلب چیزهای مهم‌تری بیاموزم.</em></p>
+
+<p>به نظر من همیشه مشکلات زیادی در شرکت‌های بزرگ وجود دارد که حتی فکر کردن به آن‌ها آزار دهنده است. هر چند مایکروسافت به قدری بزرگ است (بزرگترین شرکت نرم‌افزاری) که می‌توان آن را مثل یک کشور بزرگ تصور کرد که در هر منطقه از آن فرهنگ و سیاست خاصی حاکم است. این نمودار به زیبایی این موضوع را به تصویر کشیده؛</p>
+
+<p style="text-align: center;">
+  <a href="http:///wp-content/uploads/2013/06/ms.png"><img class="size-medium wp-image-41 aligncenter" alt="ms" src="http:///wp-content/uploads/2013/06/ms-300x194.png" width="300" height="194" srcset="/wp-content/uploads/2013/06/ms-300x194.png 300w, /wp-content/uploads/2013/06/ms.png 504w" sizes="(max-width: 300px) 100vw, 300px" /></a>
+</p>
+
+<p> </p>
+
+<p>بنابراین طبیعی است که فرهنگ هر نقطه با نقطه دیگر در این سازمان متفاوت باشد. هر چند من طرفدار شرکت مایکروسافت هستم و معتقدم همه مردم، مخصوصاً ما که در صنعت نرم‌افزار و حتی سخت‌افزار فعال هستیم، به نحوی مدیون این شرکت بوده و هستیم ولی اگر واقع بین باشیم، این شرکت محصولاتی هم دارد که واقعاً انزجار بر انگیزند. و این محصولات حاصل همین مشکلات است.</p>
+
+<p>ما چه می‌توانیم از این موضوع بیاموزیم؟ من آموختم که آرزوی بلند مدت زندگی‌ام را بر روی ایجاد یک سازمان بزرگ و بی سر و ته نگذارم. هر چند راه‌هایی برای کنترل آن وجود دارد ولی همیشه ابزارهای خوبی که زندگی مردم را متحول کردند، از تیم‌های کوچک یا انفرادی شروع شده و کم کم گسترش پیدا کردند. بعد از گسترش یک کار ممکن است وجود یک سازمان بزرگ ضروری شود ولی چون تمرکز من بر روی شروع کارهای موفق و ایجاد ابزارهای مفید است فعلاً نیازی به ایجاد سازماندهی موفق نمی‌بینم.</p>
+
+<p>به همین دلیل، همیشه تشکیل اجتماع و شبکه‌سازی را به تشکیل یک تیم بلند مدت ترجیح می‌دهم و همچنین پروژه‌های کوتاه مدت با ارزشی که بر روی تیم‌های کوتاه مدت استوار هستند را به پروژه‌هایی که برای اجرا به تیم‌های بلند مدت نیاز دارند، ترجیح می‌دهم.</p>
+
+<p>منبع تصویر: <a href="http://haacked.com/archive/2013/05/13/applying-conways-law.aspx" target="_blank">http://haacked.com/archive/2013/05/13/applying-conways-law.aspx</a></p>
+
+  </article>
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">چارچوب توسعه</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">تجربه‌های یه برنامه‌نویس گیک
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
