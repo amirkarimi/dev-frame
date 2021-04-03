@@ -1,0 +1,10 @@
+I"�<p><a href="/wp-content/uploads/2013/12/open-in-terminal.png"><img class="alignleft  wp-image-132" style="border: 1px solid silver; margin-right: 20px;" alt="open-in-terminal" src="/wp-content/uploads/2013/12/open-in-terminal.png" width="176" height="281" srcset="/wp-content/uploads/2013/12/open-in-terminal.png 294w, /wp-content/uploads/2013/12/open-in-terminal-188x300.png 188w" sizes="(max-width: 176px) 100vw, 176px" /></a></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Nautilus_(file_manager)" target="_blank">ناتیلوس</a> یک نرم‌افزار مدیریت فایل است که در اکثر توزیع‌های لینوکس استفاده می‌شود. البته جدیداً به نام GNOME Files تغییر کرده.</p>
+
+<p>در لینوکس خیلی مرسوم است که شما بخواهید در ترمینال داخل یک مسیر (پویشه) خاص باشید تا دستور مورد نظر را اجرا کنید.</p>
+
+<p>در اوبونتو با اجرای دستور زیر گزینه Open in Terminal به منوی راست کلیک ناتیلوس اضافه می‌شود؛</p>
+
+<pre>sudo apt-get install nautilus-open-terminal</pre>
+:ET

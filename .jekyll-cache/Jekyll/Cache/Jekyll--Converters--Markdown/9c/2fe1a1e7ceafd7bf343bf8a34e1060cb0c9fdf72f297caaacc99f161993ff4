@@ -1,0 +1,11 @@
+I"�<p>به تازگی Aptana Studio 3 را بر روی اوبونتو ۱۴.۰۴ نصب کردم که هر از چند گاهی بدون دلیل کرش می‌کند و بدون هیچ پیغامی بسته می‌شود. برای حل این مشکل یک راه حل ساده وجود دارد.</p>
+
+<p>این کد را به انتهای فایل AptanaStudio3.ini اضافه کنید:</p>
+
+<pre class="brush: plain; title: ; notranslate" title="">-Dorg.eclipse.swt.browser.DefaultType=mozilla
+</pre>
+
+<p>فایل AptanaStudio3.ini در ریشه فولد Aptana Studio قرار دارد.</p>
+
+<p>منبع <a href="http://www.webupd8.org/2014/05/fix-aptana-studio-3-crashing-in-ubuntu.html" target="_blank">webupd8</a></p>
+:ET

@@ -1,0 +1,4 @@
+I"}<p>یکی از نمونه‌هایی که در سایت Service Stack برای یادگیری برنامه‌نویسان و نمایش قدرت و سادگی این چارچوب قرارداده شده، یک برنامه تحت وب تک صفحه‌ای (Singe Page Application) است که سعی کرده Stack Overflow را شبیه سازی کند.</p>
+
+<p><a href="http://www.servicestack.net/RedisStackOverflow/" target="_blank">این برنامه وبی نمونه</a> که بر روی سرور لینوکس و وب سرور nginx بارگذاری شده تنها از یک فایل <code class="language-plaintext highlighter-rouge">HTML</code> و یک فایل #<code class="language-plaintext highlighter-rouge">C</code> تشکیل شده. برای ذخیره سازی داده‌ها هم از Redis (که یک بانک اطلاعاتی NoSQL است) استفاده شده!</p>
+:ET

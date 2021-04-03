@@ -69,6 +69,12 @@
 
 </header>
 
+<div class="wrapper">
+  <div class="archived-badge alert">
+    این وب‌لاگ آرشیو شده!
+  </div>
+</div>
+
 
     <div class="page-content">
       <div class="wrapper">
@@ -113,7 +119,7 @@ var nullableObj = Model.GetSomething()
 @(nullableObj == null ? "" : nullableObj.Property)
 </pre>
 
-<p>اما در اسکالا یک نوع وجود دارد به نام <a href="http://www.scala-lang.org/files/archive/api/current/#scala.Option" target="_blank">Option</a> که وقتی قرار است یک شی تهی باشد پیشنهاد می‌شود از این نوع استفاده شود. مثلاً اگر بین رشته خالی و تهی تفاوت قائل هستید باید از نوع <code class="highlighter-rouge">Option[String]</code> استفاده کنید (در اسکالا برای معرفی نوع‌های Generic به جای کارکتر‌های &lt;&gt; از [] استفاده می‌شود مثلا در سی شارپ داریم <code class="highlighter-rouge">Type1&lt;Type2&gt;</code> در حالی که معادل آن در اسکالا می‌شود <code class="highlighter-rouge">Type1[Type2]</code>). Option تقریبا معادل Nullable در سی شارپ است.</p>
+<p>اما در اسکالا یک نوع وجود دارد به نام <a href="http://www.scala-lang.org/files/archive/api/current/#scala.Option" target="_blank">Option</a> که وقتی قرار است یک شی تهی باشد پیشنهاد می‌شود از این نوع استفاده شود. مثلاً اگر بین رشته خالی و تهی تفاوت قائل هستید باید از نوع <code class="language-plaintext highlighter-rouge">Option[String]</code> استفاده کنید (در اسکالا برای معرفی نوع‌های Generic به جای کارکتر‌های &lt;&gt; از [] استفاده می‌شود مثلا در سی شارپ داریم <code class="language-plaintext highlighter-rouge">Type1&lt;Type2&gt;</code> در حالی که معادل آن در اسکالا می‌شود <code class="language-plaintext highlighter-rouge">Type1[Type2]</code>). Option تقریبا معادل Nullable در سی شارپ است.</p>
 
 <p>با استفاده از Option، عبارت بالا به شکل زیر در اسکالا نوشته می‌شود:</p>
 

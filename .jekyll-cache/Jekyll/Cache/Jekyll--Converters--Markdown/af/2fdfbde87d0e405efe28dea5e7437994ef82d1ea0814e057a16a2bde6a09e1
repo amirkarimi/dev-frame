@@ -1,0 +1,2 @@
+I"<p><a href="http://www.mongodb.org/" target="_blank">MongoDB</a> فایل‌های بزرگتر از ۱۶ مگابایت را به صورت تکه تکه شده ذخیره می‌کند. به هر کدام از این تکه‌ها یک Chunk می‌گویند. قوانینی که برای ذخیره و بازیابی فایل در MongoDB وضع شده <a href="http://docs.mongodb.org/manual/core/gridfs/" target="_blank">GridFS</a> نام دارد که توسط درایورهای MongoDB پیاده‌سازی می‌شود.</p>
+:ET

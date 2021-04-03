@@ -1,0 +1,47 @@
+I"U<p>نصب پیش‌فرض i8k که در قسمت قبل این پست گفتم باعث بالا رفتن حرارت لپ‌تاپم شد. چون تنظیمات پیشفرض آن تا حدود دمای ۷۰ درجه را عادی تلقی می‌کند.</p>
+
+<p>برای تنظیم اینکه فن با چه سرعتی در چه بازه حرارتی کار کند اول باید فایل <code class="language-plaintext highlighter-rouge">/etc/i8kmon.conf</code> را ایجاد کنیم:</p>
+
+<pre class="brush: bash; title: ; notranslate" title="">sudo gedit /etc/i8kmon.conf
+</pre>
+
+<p>و داخل آن می‌توانیم i8k را کانفیگ کنیم که یک کانفیگ نمونه به شکل زیر است:</p>
+
+<pre class="brush: plain; title: ; notranslate" title="">
+
+<figure class="highlight"><pre><code class="language-config" data-lang="config"><span class="c"># Run as daemon, override with --daemon option
+</span><span class="n">set</span> <span class="n">config</span>(<span class="n">daemon</span>)      <span class="m">0</span>
+
+<span class="c"># Automatic fan control, override with --auto option
+</span><span class="n">set</span> <span class="n">config</span>(<span class="n">auto</span>)        <span class="m">1</span>
+
+<span class="c"># Report status on stdout, override with --verbose option
+</span><span class="n">set</span> <span class="n">config</span>(<span class="n">verbose</span>) <span class="m">1</span>
+
+<span class="c"># Status check timeout (seconds), override with --timeout option
+</span><span class="n">set</span> <span class="n">config</span>(<span class="n">timeout</span>) <span class="m">20</span>
+
+<span class="c"># Temperature thresholds: {fan_speeds low_ac high_ac low_batt high_batt}
+</span><span class="n">set</span> <span class="n">config</span>(<span class="m">0</span>)   \{\{-<span class="m">1</span> <span class="m">0</span>\}  -<span class="m">1</span>  <span class="m">40</span>  -<span class="m">1</span>  <span class="m">40</span>\}
+<span class="n">set</span> <span class="n">config</span>(<span class="m">1</span>)   \{\{-<span class="m">1</span> <span class="m">1</span>\}  <span class="m">30</span>  <span class="m">60</span>  <span class="m">30</span>  <span class="m">60</span>\}
+<span class="n">set</span> <span class="n">config</span>(<span class="m">2</span>)   \{\{-<span class="m">1</span> <span class="m">2</span>\}  <span class="m">53</span>  <span class="m">128</span>  <span class="m">53</span>  <span class="m">128</span>\}
+
+<span class="err">#</span> <span class="n">end</span> <span class="n">of</span> <span class="n">file</span></code></pre></figure>
+
+
+دقت شود که اگر لپ‌تاپ مجهز به دو فن باشد باید تنظیمات متفاوتی را استفاده کرد.
+
+مهمترین قسمت این تنظیمات خطوط ۱۵ تا ۱۷ هستند که به ترتیب زیر عمل می‌کند:
+
+  * در صورتی که دمای CPU زیر ۴۰ درجه باشد فن خاموش می‌شود
+  * اگر دما زیر ۶۰ درجه باشد فن با سرعت ۱ به کار می‌افتد
+  * اگر دما بالای ۶۰ درجه باشد فن با سرعت ۲ به کار می‌افتد
+
+حالا با ریست کردن سرویس i8kmon با دستور زیر و یا ریست کردن سیستم فن‌ها بیشتر کار می‌کنند و سیستم خنک‌تر می‌مانند:
+
+<pre class="brush: bash; title: ; notranslate" title="">sudo service i8kmon restart
+</pre>
+
+منبع: <a href="http://askubuntu.com/questions/281478/fan-speed-in-ubuntu-pwmconfig-no-pwm-capable-sensor-modules-installed" target="_blank">Ask Ubuntu</a>
+</pre>
+:ET
